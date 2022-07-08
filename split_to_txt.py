@@ -29,6 +29,16 @@ def sentotxtconverter(txtdirectory, inputfile):
             pass
 
 
+def check_punctuation(sentence):  # this module is for checking punctuation
+    sentence = sentence.replace('|', '।').strip()
+    sentenceSeparated = ''
+    if (bool(re.search(r'(?<=[^ ])[!।?]', sentence[-2:]))):
+        sentenceSeparated = sentence[:-1] + ' ' + sentence[-1:]
+    else:
+        sentenceSeparated = sentence
+    return sentenceSeparated+'\n'
+
+
 # this module is for creating a file of simple sentences.
 def create_corpora_simple_sentences(inputfile, outputfile):
     f1 = open(outputfile, "w")  # enter the output file with path
@@ -36,7 +46,7 @@ def create_corpora_simple_sentences(inputfile, outputfile):
     with open(inputfile, encoding="UTF-8") as f:
         for sentence in f:
             if is_simple_sentence(sentence):
-                sentence = clean_sentences(sentence)
+                sentence = check_punctuation(sentence)
                 sentence.strip()
                 f1.write(sentence)
 
