@@ -20,11 +20,11 @@ def sentotxtconverter(txtdirectory, inputfile):
     for sentence in corpora:
         try:
             sentence = sentence.replace('\n', '').split("\t")
-            sentence = clean_sentences(sentence)
+            # sentence = clean_sentences(sentence)
             filename = sentence[0]
             # with filename concatenate the path of folder you want foles saved.
             f1 = open(txtdirectory + "/" + filename, "w", encoding="UTF-8")
-            f1.write(sentence[1])
+            f1.write(clean_sentences(sentence[1]))
         except:
             pass
 
@@ -36,7 +36,7 @@ def create_corpora_simple_sentences(inputfile, outputfile):
     with open(inputfile, encoding="UTF-8") as f:
         for sentence in f:
             if is_simple_sentence(sentence):
-                sentence = clean_sentences(sentence)
+                # sentence = clean_sentences(sentence)
                 sentence.strip()
                 f1.write(sentence)
 
