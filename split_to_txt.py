@@ -3,29 +3,30 @@ import numpy as np
 import os
 import sys
 
+def clean_sentences(s):
+    s = s.strip()
+    s = re.sub('  +', ' ', s)
+    s = s.replace('|', '।')
+    s = re.sub(r'(?<![ ])[।?!]', r' \g<0>', s)
+    s = re.sub(r'\s+(?=,)', r'', s)
+    s = re.sub(r',(?! )', r', ', s)
+    if not bool(re.search(r'[।?!]$', s)):
+        s = ' '.join((s, '।'))
+    return s
 
-def sentotxtconverter (txtdirectory, inputfile):
+def sentotxtconverter(txtdirectory, inputfile):
     f = open(inputfile, "r", encoding="UTF-8")
     corpora = f.readlines()
     for sentence in corpora:
         try:
             sentence = sentence.replace('\n', '').split("\t")
+            sentence = clean_sentences(sentence)
             filename = sentence[0]
             # with filename concatenate the path of folder you want foles saved.
             f1 = open(txtdirectory + "/" + filename, "w", encoding="UTF-8")
             f1.write(sentence[1])
         except:
             pass
-
-
-def check_punctuation(sentence):  # this module is for checking punctuation
-    sentence = sentence.replace('|', '।').strip()
-    sentenceSeparated = ''
-    if (bool(re.search(r'(?<=[^ ])[!।?]', sentence[-2:]))):
-        sentenceSeparated = sentence[:-1] + ' ' + sentence[-1:]
-    else:
-        sentenceSeparated = sentence
-    return sentenceSeparated+'\n'
 
 
 # this module is for creating a file of simple sentences.
@@ -35,7 +36,7 @@ def create_corpora_simple_sentences(inputfile, outputfile):
     with open(inputfile, encoding="UTF-8") as f:
         for sentence in f:
             if is_simple_sentence(sentence):
-                sentence = check_punctuation(sentence)
+                sentence = clean_sentences(sentence)
                 sentence.strip()
                 f1.write(sentence)
 
