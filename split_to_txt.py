@@ -33,8 +33,6 @@ def sentotxtconverter(txtdirectory, inputfile):
 # this module is for creating a file of simple sentences.
 def create_corpora_simple_sentences(inputfile):
     outputfile = str.join('', ((inputfile.split('.')[0], '_output.txt')))
-    linearFile = str.join('', (('linear_', inputfile.split('.')[0], '.xlsx')))
-    lineardf = pd.DataFrame(columns=['id', 'sentence'])
     f1 = open(outputfile, "w")  # enter the output file with path
     # Enter the input file here with path
     with open(inputfile, encoding="UTF-8") as f:
@@ -43,8 +41,6 @@ def create_corpora_simple_sentences(inputfile):
                 # sentence = clean_sentences(sentence)
                 sentence.strip()
                 f1.write(sentence)
-                lineardf.loc[len(lineardf)] = sentence.strip().split('\t')
-        lineardf.to_excel(linearFile, header=None, index=None)
 
 
 def is_simple_sentence(sentence):
