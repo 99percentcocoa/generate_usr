@@ -16,11 +16,11 @@ do
     echo "$file: wx completed."
     python3 getMorphPruneAndNER3.py tmp.txt prune-output.txt
     echo "$file: Morph completed."
-    g++ new_new_dup.cpp
+    g++ newdup_copy.cpp
     echo "$file: Compilation completed."
-    ./a.out
+    ./a.out > oup.txt
     echo "$file: Execution completed."
-    mv oup.txt ${outputDir}/"$filename.txt" #outputdirectory "create output direcotry in parent directory"
+    mv oup.txt ${outputDir}/"$filename.txt" #outputdirectory "create output directory in parent directory"
     echo "$file: Output written $i/$numFiles"
     i=$((i+1))
 done 
