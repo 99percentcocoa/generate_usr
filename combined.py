@@ -14,7 +14,7 @@ if __name__ == "__main__":
     outputfile = str.join('', ((inputfile.split('.')[0], '_output.txt')))
     txtdirectory = inputfile.split('.')[0]
     os.mkdir(txtdirectory)
-    create_corpora_simple_sentences(inputfile)
+    create_corpora_simple_sentences(inputfile, outputfile)
     sentotxtconverter(txtdirectory, outputfile)
 
     bashCommand = f'sh bulk_usr_generator.sh {txtdirectory}'

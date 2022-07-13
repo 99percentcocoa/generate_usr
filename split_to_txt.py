@@ -3,6 +3,7 @@ import numpy as np
 import os
 import sys
 import pandas as pd
+import single
 
 def clean_sentences(s):
     s = s.strip()
@@ -31,16 +32,21 @@ def sentotxtconverter(txtdirectory, inputfile):
 
 
 # this module is for creating a file of simple sentences.
-def create_corpora_simple_sentences(inputfile):
-    outputfile = str.join('', ((inputfile.split('.')[0], '_output.txt')))
+def create_corpora_simple_sentences(inputfile, outputfile):
+    # outputfile = str.join('', ((inputfile.split('.')[0], '_output.txt')))
     f1 = open(outputfile, "w")  # enter the output file with path
     # Enter the input file here with path
     with open(inputfile, encoding="UTF-8") as f:
-        for sentence in f:
-            if is_simple_sentence(sentence):
-                # sentence = clean_sentences(sentence)
-                sentence.strip()
-                f1.write(sentence)
+        for line in f:
+            id, sentence = line.split('\t')
+            sentence = clean_sentences(sentence)
+            for sentence in f:
+                if is_simple_sentence(sentence):
+                    # sentence = clean_sentences(sentence)
+                    sentence.strip()
+                    f1.write(sentence)
+                else:
+                    f1.write(single.handle_single(sentence, id))
 
 
 def is_simple_sentence(sentence):
