@@ -38,15 +38,17 @@ def create_corpora_simple_sentences(inputfile, outputfile):
     # Enter the input file here with path
     with open(inputfile, encoding="UTF-8") as f:
         for line in f:
-            id, sentence = line.split('\t')[:2]
+            id, sentence = line.split('\t')
             sentence = clean_sentences(sentence)
-            for sentence in f:
-                if is_simple_sentence(sentence):
-                    # sentence = clean_sentences(sentence)
-                    sentence.strip()
-                    f1.write(sentence)
-                else:
-                    f1.write(single.handle_single(sentence, id))
+            # print(sentence)
+            if is_simple_sentence(sentence):
+                # sentence = clean_sentences(sentence)
+                sentence.strip()
+                print('\t'.join((id, sentence)))
+                f1.write('\t'.join((id, sentence)) + '\n')
+            else:
+                print(single.handle_single(sentence, id))
+                f1.write(single.handle_single(sentence, id) + '\n')
 
 
 def is_simple_sentence(sentence):
