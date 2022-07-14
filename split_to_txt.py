@@ -38,7 +38,7 @@ def create_corpora_simple_sentences(inputfile, outputfile):
     # Enter the input file here with path
     with open(inputfile, encoding="UTF-8") as f:
         for line in f:
-            id, sentence = line.split('\t')
+            id, sentence = line.split('\t')[:2]
             sentence = clean_sentences(sentence)
             for sentence in f:
                 if is_simple_sentence(sentence):
