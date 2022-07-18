@@ -47,8 +47,13 @@ def create_corpora_simple_sentences(inputfile, outputfile):
                 print('\t'.join((id, sentence)))
                 f1.write('\t'.join((id, sentence)) + '\n')
             else:
-                print(single.handle_single(sentence, id))
-                f1.write(single.handle_single(sentence, id) + '\n')
+                complex_output = ''
+                try:
+                    complex_output = single.handle_single(sentence, id)
+                    print(complex_output)
+                    f1.write(single.handle_single(sentence, id) + '\n')
+                except IndexError as e:
+                    print('Index Error. Skipping Sentence')
 
 
 def is_simple_sentence(sentence):
